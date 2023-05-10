@@ -60,8 +60,7 @@ insert into cidades(nome) values ('Toxicity'), ('Seattle'), ('Melbourne'), ('Seo
 insert into grupos(nome, id_cidade) values ('Beattles', 2), ('Ghost Busters', 1), ('Gallagers', 6), ('Kangurus', 3), ('Jormungandr', 5), ('Biters', 4);
 delete from grupos where id_grupo in (1, 5);
 
-insert into utensilios (nome) 
-values ('Facao'), ('Revolver'), ('Machado'), ('arco e flecha'), ('Canivete'), ('Espingarda');
+insert into utensilios (nome) values ('Facao'), ('Revolver'), ('Machado'), ('arco e flecha'), ('Canivete'), ('Espingarda');
 update utensilios set nome = 'utensilios de cozinha' where id_utensilio = 5;
 
 insert into funcoes (nome, id_utensilio) values ('Coletor', 1), ('Soldado', 2), ('Cacador', 4), ('cozinheiro', 5), ('Construtor', 3), ('Lider', 6);
@@ -84,9 +83,9 @@ insert into embates (id_pessoa, id_zumbi, id_tipo_vencedor) values (10, 3, 1);
 commit
 
 
--------------------------------------------------
+-------------------------------------------------------------------
 -- Consultas simples para cada uma das tabelas --
--------------------------------------------------
+-------------------------------------------------------------------
 
 
 
@@ -105,6 +104,9 @@ select * from embates
 -- Consultas com juncoes de tabela (JOIN) --
 --------------------------------------------
 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- Objetivo da consulta é trazer o identificador do grupo, juntamente de seu nome e o nome da cidade a qual pertence --
+ ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 select 
 	g.id_grupo,
@@ -115,7 +117,11 @@ from
 join 
 	cidades c on c.id_cidade = g.id_cidade
 	
-	
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- Objetivo da consulta é trazer o identificador da função, juntamente de seu nome e o nome do utensilio que possui direito a uso --
+ -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 select 
 	f.id_funcao,
 	f.nome as nome_funcao,
@@ -125,6 +131,9 @@ from
 join
 	utensilios u on u.id_utensilio = f.id_utensilio
 	
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- Objetivo da consulta é trazer o identificador do combate, juntamente do nome do humano que participou, o nome do tipo do zumbi e quem foi o vencedor H/Z(Humano, Zumbi) --
+ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	
 select 
 	e.id_embate,
@@ -140,12 +149,15 @@ join
 join 
 	vencedor v on v.id_tipo_vencedor = e.id_tipo_vencedor
 	
+
 	
-	
------------------------------
+-----------------------------------------
 -- Consultas com agregacao --
------------------------------ 
+-----------------------------------------
 	
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- Objetivo da consulta é trazer todas as pessoas que tiveram em algum combate e mostrar qual foi o maior nivel de perigo que enfrentaram --
+ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	
 select 
 	p.id_pessoa,
@@ -162,8 +174,11 @@ group by
 	p.nome
 order by 
 	p.nome asc 	
-	
-	
+		
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- Objetivo da consulta é trazer todas as pessoas que tiveram em algum combate e mostrar qual foi o menor nivel de perigo que enfrentaram --
+ ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 select 
 	p.id_pessoa,
 	p.nome,
@@ -180,6 +195,9 @@ group by
 order by 
 	p.nome asc 
 	
+--------------------------------------------------------------------------------------------------------------------------------------
+-- Objetivo da consulta é trazer todas as pessoas e contar em quantos combates elas participaram --
+--------------------------------------------------------------------------------------------------------------------------------------
 	
 select 
 	p.id_pessoa,
